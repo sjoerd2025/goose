@@ -249,7 +249,8 @@ impl Provider for LiteLLMProvider {
             false,
         )?;
 
-        if self.supports_cache_control(model_config).await {
+        if self.supports_cache_control(model_config).await && !model_config.prompt_cache_disabled()
+        {
             apply_chat_payload_breakpoints(&mut payload);
         }
 
